@@ -9,22 +9,7 @@ deviceid = uint32(0);
 hdevice = uint32(1); %ALP device identifier for which the information is requested
 DeviceIdPtr = libpointer('uint32Ptr', hdevice); %make an outpointer to write
 [return_DevAlloc, hdevice] = calllib(dll_name, 'AlpDevAlloc', deviceid, hdevice, DeviceIdPtr);
-
-if return_DevAlloc == 0
-    fprintf('%d : devalloc - Successfull execution. \n', return_DevAlloc)
-elseif return_DevAlloc == 1006
-   fprintf('%d : devalloc - Error accessing user data. \n.', return_DevAlloc)
-elseif return_DevAlloc == 1010
-   fprintf('%d : devalloc - Initialization error. \n.', return_DevAlloc)
-elseif return_DevAlloc == 1001
-    fprintf('%d : devalloc - The specified ALP has not been found or is not ready. \n', return_DevAlloc)
-elseif return_DevAlloc == 1004
-    fprintf('%d : devalloc - The specified ALP is already allocated. \n', return_DevAlloc)
-elseif return_DevAlloc == 1003
-    fprintf('%d : devalloc - The specified ALP identifier is not valid. \n', return_DevAlloc)
-else 
-    fprintf('devalloc error code: %d \n.', return_DevAlloc)
-end
+errorcheck(return_DevAlloc)
 end
     
  
