@@ -21,11 +21,8 @@ pictureTime = 500000; %display picture time in usec
 %allocating the DMD
 [return_DevAlloc,hdevice] = devalloc(dll_name); 
 
-%Inquiting the DMD device serial number
+%Inquiring the DMD device serial number
 [return_inquiry,return_InquireType] = devinquire(dll_name,hdevice,2000);
-
-%Inquiting the DMD type
-[return_inquiry2,return_InquireType2] = devinquire(dll_name,hdevice,2021);
 
 %sequence allocation
 [return_seqalloc,SequenceId] = seqalloc(dll_name,hdevice,BitPlanes,PicNum);
