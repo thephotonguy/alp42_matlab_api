@@ -5,11 +5,11 @@
 % ALP_DEV_STATE			2002L	current ALP status 
 % ALP_AVAIL_MEMORY		2003L	ALP on-board sequence memory available for further sequence 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%										
-function [return_inquiry,return_InquireType] = devinquire(dll_name,hdevice,InquireType)
+function [return_InquireType] = devinquire(dll_name,hdevice,InquireType)
 
 InquireType = int32(InquireType); %specifies the ALP device parameter setting to inquire; refer to pg no 8 in the api document
 return_InquireType = int32(0);
 return_inquireptr = libpointer('int32Ptr', return_InquireType);
 [return_inquiry, return_InquireType] = calllib(dll_name, 'AlpDevInquire', hdevice, InquireType , return_inquireptr);
-errorcheck(return_inquiry)
+errorcheck(return_inquiry);
 end

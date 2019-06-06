@@ -19,31 +19,31 @@ PicLoad = 2; %number of pictures that are to be loaded into the sequence memory
 pictureTime = 500000; %display picture time in usec
 
 %allocating the DMD
-[return_DevAlloc,hdevice] = devalloc(dll_name); 
+[hdevice] = devalloc(dll_name); 
 
 %Inquiring the DMD device serial number
-[return_inquiry,return_InquireType] = devinquire(dll_name,hdevice,2000);
+[return_InquireType] = devinquire(dll_name,hdevice,2000);
 
 %sequence allocation
-[return_seqalloc,SequenceId] = seqalloc(dll_name,hdevice,BitPlanes,PicNum);
+[SequenceId] = seqalloc(dll_name,hdevice,BitPlanes,PicNum);
 
 %send image to the dmd
-[return_seqput] = seqput(dll_name,hdevice,SequenceId,PicOffset,PicLoad,img);
+seqput(dll_name,hdevice,SequenceId,PicOffset,PicLoad,img);
 
 %timing of the sequence
-[return_seqtiming] = seqtiming(dll_name,hdevice,SequenceId,0,pictureTime,0,0,0);
+seqtiming(dll_name,hdevice,SequenceId,0,pictureTime,0,0,0);
 
 %start the sequence
-[return_projstart] = projstart(dll_name,hdevice,SequenceId);
+projstart(dll_name,hdevice,SequenceId);
 
 %halt the display
-[return_devhalt] = devhalt(dll_name,hdevice);
+devhalt(dll_name,hdevice);
 
 %free the sequence in the dmd
-[return_seqfree] = seqfree(dll_name,hdevice,SequenceId);
+seqfree(dll_name,hdevice,SequenceId);
 
 %free the dmd
-[return_devfree] = devfree(hdevice);
+devfree(hdevice);
 
 unloadlibrary alpV42
 

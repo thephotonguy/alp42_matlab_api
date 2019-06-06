@@ -7,12 +7,12 @@
 %SynchPulseWidth - specifies the duration of the frame synch output pulse.
 %TriggerInDelay - specifies the time between the incoming trigger edge and the start of the display. 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function[return_seqtiming] = seqtiming(dll_name,hdevice,SequenceId,IlluminateTime,PictureTime,SynchDelay,SynchPulseWidth,TriggerInDelay)
+function seqtiming(dll_name,hdevice,SequenceId,IlluminateTime,PictureTime,SynchDelay,SynchPulseWidth,TriggerInDelay)
 IlluminateTime = int32(IlluminateTime);
 PictureTime = int32(PictureTime);
 SynchDelay = int32(SynchDelay);
 SynchPulseWidth = int32(SynchPulseWidth);
 TriggerInDelay = int32(TriggerInDelay);
 [return_seqtiming] = calllib(dll_name,'AlpSeqTiming', hdevice, SequenceId, IlluminateTime, PictureTime, SynchDelay, SynchPulseWidth, TriggerInDelay);
-errorcheck(return_seqtiming)
+errorcheck(return_seqtiming);
 end

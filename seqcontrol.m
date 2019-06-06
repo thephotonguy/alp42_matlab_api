@@ -4,9 +4,9 @@
 %ControlType: control parameter that is to be modified
 %ControlValue: value of the parameter
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function[return_seqcontrol] = seqcontrol(dll_name,hdevice,SequenceId,ControlType,ControlValue)
+function seqcontrol(dll_name,hdevice,SequenceId,ControlType,ControlValue)
 ControlType = int32(ControlType);
 ControlValue = int32(ControlValue);
 [return_seqcontrol] = calllib(dll_name,'AlpSeqControl', hdevice, SequenceId, ControlType, ControlValue);
-errorcheck(return_seqcontrol)
+errorcheck(return_seqcontrol);
 end
