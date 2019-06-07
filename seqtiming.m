@@ -14,5 +14,10 @@ SynchDelay = int32(SynchDelay);
 SynchPulseWidth = int32(SynchPulseWidth);
 TriggerInDelay = int32(TriggerInDelay);
 [return_seqtiming] = calllib(dll_name,'AlpSeqTiming', hdevice, SequenceId, IlluminateTime, PictureTime, SynchDelay, SynchPulseWidth, TriggerInDelay);
-errorcheck(return_seqtiming);
+errval = errorcheck(return_seqtiming);
+if errval == 1
+    seqfree(dll_name,hdevice,SequenceId);
+    devfree(hdevice);
+    unloadlibrary alpV42
+end
 end

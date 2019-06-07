@@ -9,5 +9,10 @@ Seq_InquireType = int32(Seq_InquireType);
 Seq_UserVar = int32(0);
 Seq_UserVarPtr = libpointer('int32Ptr',Seq_UserVar);
 [return_seqinquire,Seq_UserVar] = calllib(dll_name,'AlpSeqInquire',hdevice, SequenceId, Seq_InquireType, Seq_UserVarPtr);
-errorcheck(return_seqinquire);
+errval = errorcheck(return_seqinquire);
+if errval == 1
+    seqfree(dll_name,hdevice,SequenceId);
+    devfree(hdevice);
+    unloadlibrary alpV42
+end
 end

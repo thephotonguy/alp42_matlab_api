@@ -11,5 +11,10 @@ PicNum = int32(PicNum);
 SequenceId = uint32(0);
 SequenceIdPtr = libpointer('uint32Ptr',SequenceId);
 [return_seqalloc, SequenceId] = calllib(dll_name, 'AlpSeqAlloc', hdevice, BitPlanes, PicNum, SequenceIdPtr);
-errorcheck(return_seqalloc);
+errval = errorcheck(return_seqalloc);
+if errval == 1
+    seqfree(dll_name,hdevice,SequenceId);
+    devfree(hdevice);
+    unloadlibrary alpV42
+end
 end

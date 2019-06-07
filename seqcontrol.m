@@ -8,5 +8,10 @@ function seqcontrol(dll_name,hdevice,SequenceId,ControlType,ControlValue)
 ControlType = int32(ControlType);
 ControlValue = int32(ControlValue);
 [return_seqcontrol] = calllib(dll_name,'AlpSeqControl', hdevice, SequenceId, ControlType, ControlValue);
-errorcheck(return_seqcontrol);
+errval = errorcheck(return_seqcontrol);
+if errval == 1
+    seqfree(dll_name,hdevice,SequenceId);
+    devfree(hdevice);
+    unloadlibrary alpV42
+end
 end
